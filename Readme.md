@@ -12,4 +12,4 @@ Also you should select a [centos mirror](https://www.centos.org/download/mirrors
     docker run -v $PWD/:/build custom_centos_iso
 
 Afterwards the current directory contains a `custom.iso` and a folder
-`isolinux` the contains the image content.
+`isolinux` that contains the image content.

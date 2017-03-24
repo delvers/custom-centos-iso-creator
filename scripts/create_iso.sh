@@ -24,6 +24,8 @@ fi
 mkdir -p ${build_dir}/isolinux/config
 cp anaconda-ks.cfg ${build_dir}/isolinux/config/ks.cfg
 
+cp /scripts/isolinux.cfg ${build_dir}/isolinux/isolinux.cfg
+
 chmod 664 ${build_dir}/isolinux/isolinux.bin
 
 mkisofs -o custom.iso -b isolinux.bin -c boot.cat -no-emul-boot \
