@@ -1,0 +1,34 @@
+#version=RHEL7
+# System authorization information
+auth --enableshadow --passalgo=sha512
+
+# Use network installation
+url --url="http://centosmirror.netcup.net/centos/7/os/x86_64"
+# Run the Setup Agent on first boot
+firstboot --enable
+ignoredisk --only-use=vda
+# Keyboard layouts
+keyboard --vckeymap=de --xlayouts='de (nodeadkeys)'
+# System language
+lang de_DE.UTF-8
+
+# Network information
+network  --bootproto=dhcp --device=eth0 --ipv6=auto --activate
+network  --device=lo --hostname=localhost.localdomain
+# Root password
+rootpw --iscrypted < rootpw_hash >
+# System timezone
+timezone Europe/Berlin --isUtc
+# Add sudo user
+user --groups=wheel --homedir=/home/somesudouser --name=somesudouser --password=<userpw_hash> --iscrypted --gecos="somesudouser"
+# System bootloader configuration
+bootloader --location=mbr --boot-drive=vda
+autopart --type=lvm
+# Partition clearing information (remove alls)
+clearpart --all --initlabel --drives=vda
+
+%packages
+@core
+@security-tools
+
+%end
