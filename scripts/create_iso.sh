@@ -1,6 +1,5 @@
 #!/bin/sh
 build_dir="/build"
-mkdir 
 if [ ! -d "${build_dir}/isolinux" ]; then
 	echo "##### Start Downloading #####"
   cd /tmp
@@ -20,14 +19,22 @@ if [ ! -d "${build_dir}/isolinux" ]; then
   cd ${build_dir}
 fi
 
+
+if [ $HOST ]
+then
+	host=$HOST
+else
+	host="anaconda-ks"
+fi
+
 # include kickstart config
 mkdir -p ${build_dir}/isolinux/config
-cp anaconda-ks.cfg ${build_dir}/isolinux/config/ks.cfg
+cp ${host}.cfg ${build_dir}/isolinux/config/ks.cfg
 
 cp /scripts/isolinux.cfg ${build_dir}/isolinux/isolinux.cfg
 
 chmod 664 ${build_dir}/isolinux/isolinux.bin
 
-mkisofs -o custom.iso -b isolinux.bin -c boot.cat -no-emul-boot \
+mkisofs -o ${host}.iso -b isolinux.bin -c boot.cat -no-emul-boot \
   -V 'CentOS 7 x86_64' \
   -boot-load-size 4 -boot-info-table -R -J -v -T isolinux/
