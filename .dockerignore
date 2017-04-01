@@ -1,3 +1,2 @@
-anaconda-ks.cfg
 isolinux
-custom.iso
+*.iso
